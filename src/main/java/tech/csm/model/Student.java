@@ -13,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -62,6 +64,10 @@ public class Student implements Serializable {
 	private Branch branch;
 	
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Address> adresses;
+    private List<Address> addresses;
+	
+	@ManyToMany
+	@JoinTable(name="t_student_course", joinColumns = @JoinColumn(name="roll_no"), inverseJoinColumns = @JoinColumn(name="course_id"))
+	private List<Course> courses;
 
 }
